@@ -5,10 +5,10 @@
   <title>Beasts of Bermuda Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
-    body, html {
+    html, body {
       margin: 0;
+      padding: 0;
       height: 100%;
-      overflow: hidden;
     }
 
     #map {
@@ -19,17 +19,19 @@
     .map-controls {
       position: absolute;
       top: 10px;
-      left: 5px;
+      right: 10px;
       z-index: 1000;
-      background: rgba(255,255,255,0.8);
-      padding: 10px;
-      border-radius: 5px;
+      background: rgba(255,255,255,0.95);
+      padding: 12px;
+      border-radius: 8px;
+      font-family: sans-serif;
+      max-width: 180px;
     }
 
     .map-controls button {
       display: block;
-      margin-bottom: 5px;
-      width: 150px;
+      margin-bottom: 8px;
+      width: 100%;
       padding: 6px;
       font-weight: bold;
       background: #ddd;
@@ -41,6 +43,16 @@
     .map-controls button:hover {
       background: #bbb;
     }
+
+    .legend {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .legend span {
+      font-size: 16px;
+      margin-right: 4px;
+    }
   </style>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
@@ -49,47 +61,64 @@
     <button onclick="setMap('default')">Default Map</button>
     <button onclick="setMap('tunnels')">Tunnel View</button>
     <button onclick="setMap('underwater')">Underwater View</button>
+
+    <div class="legend">
+      <strong>Legenda:</strong><br>
+      <span style="color:brown;">■</span> Gebouwen<br>
+      <span style="color:blue;">■</span> Water<br>
+      <span style="color:green;">■</span> Jungle<br>
+    </div>
   </div>
 
   <div id="map"></div>
 
   <script>
+    const imageSize = [900, 1000]; // hoogte, breedte van afbeelding
     const map = L.map('map', {
       crs: L.CRS.Simple,
       minZoom: 0,
       maxZoom: 3,
-      zoomControl: true
+      zoomSnap: 0.1,
+      maxBounds: [[0, 0], [imageSize[0], imageSize[1]]], // beperk panning
+      maxBoundsViscosity: 1.0 // hard limit bij rand
     });
 
-    const bounds = [[0, 0], [1000, 1000]];
-    const underwaterUnderlay = L.imageOverlay('WaterBackgroundUnderlay.png', bounds).addTo(map);
-    const baseMapOverlay = L.imageOverlay('LandMapOverlay.png', bounds).addTo(map);
-    const BaseMapTransparent = L.imageOverlay('LandMapTransparent65Overlay.png', bounds);
-    const tunnelOverlay = L.imageOverlay('tunnels.png', bounds);
+    const bounds = [[0, 0], [imageSize[0], imageSize[1]]];
+    const outerBounds = [[0, 0], [1080, 1920]]; // indien andere overlays groter zijn
 
-    map.fitBounds(bounds);
+    // overlays
+    const underwaterUnderlay = L.imageOverlay('WaterBackgroundUnderlay2.png', outerBounds).addTo(map);
+    const baseMapOverlay = L.imageOverlay('LandMapOverlay.png', bounds).addTo(map);
+    const underwaterTunnelsOverlay = L.imageOverlay('LandMapTransparent65Overlay.png', bounds);
+    const tunnelOverlay = L.imageOverlay('Tunnels.png', bounds);
+    const zoneOverlay = L.imageOverlay('Zone.png', outerBounds);
+
+    // Fit the map exactly to the image
+map.fitBounds(outerBounds); // This fits the WATER image
+map.setMaxBounds(outerBounds); // Also restrict panning to WATER size
+
+
 
     function setMap(view) {
-      //Remove all overlays
-      //map.removeLayer(underwaterUnderlay);
-      
-      map.removeLayer(BaseMapTransparent);
-
+      // Remove overlays
+      map.removeLayer(baseMapOverlay);
+      map.removeLayer(underwaterTunnelsOverlay);
+      map.removeLayer(tunnelOverlay);
+      map.removeLayer(zoneOverlay);
 
       if (view === 'underwater') {
-        map.removeLayer(baseMapOverlay);
-        BaseMapTransparent.addTo(map);
+        underwaterTunnelsOverlay.addTo(map);
       } else if (view === 'tunnels') {
-        map.removeLayer(baseMapOverlay);
-        BaseMapTransparent.addTo(map);
+        //baseMapTransparent.addTo(map);
+        tunnelOverlay.addTo(map);
       } else if (view === 'default') {
         baseMapOverlay.addTo(map);
       }
     }
 
-    // Optional: Marker system
+    // Optional: voeg markers toe
     const points = [
-      // { name: "Waterhole 1", coords: [800, 200] },
+      // { name: "Nest 1", coords: [600, 300] },
     ];
 
     points.forEach(p => {
