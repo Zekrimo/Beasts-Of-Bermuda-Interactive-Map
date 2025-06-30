@@ -1,10 +1,3 @@
-<!--
-  Copyright © 2025 Zekrimo
-  All rights reserved.
-  Do not copy, modify, or redistribute this source code.
-  Usage of the deployed map at https://zekrimo.github.io/BoB-Interactive-Map is permitted.
--->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,62 +87,55 @@
       <div style="margin-left: 20px;">
         <label><input type="checkbox" class="watershrines" checked onchange="toggleCategory('watershrines_redShrines')">
           <span style="color:pink;">■</span> Red Shrines</label><br>
-        <label><input type="checkbox" class="watershrines" checked
-            onchange="toggleCategory('watershrines_blueShrines')">
+        <label><input type="checkbox" class="watershrines" checked onchange="toggleCategory('watershrines_blueShrines')">
           <span style="color:lightblue;">■</span> Blue Shrines</label><br>
-        <label><input type="checkbox" class="watershrines" checked
-            onchange="toggleCategory('watershrines_greenShrines')">
+        <label><input type="checkbox" class="watershrines" checked onchange="toggleCategory('watershrines_greenShrines')">
           <span style="color:lightgreen;">■</span> Green Shrines</label><br>
       </div>
 
-      <label><input type="checkbox" id="portals" checked onchange="toggleGroup('portals')"> Portals
+      <label>
+        <input type="checkbox" id="portals" checked onchange="toggleGroup('portals')"> Portals
       </label>
       <div style="margin-left: 20px;">
-        <label><input type="checkbox" class="portals portal_1" checked onchange="toggleCategory('Portal_1')">
+        <label><input type="checkbox" class="portals" checked onchange="toggleCategory('portal_1')">
           <span style="color:purple;">■</span> Ashen Island / Jungle Highlands</label><br>
-        <label><input type="checkbox" class="portals portal_2" checked onchange="toggleCategory('Portal_2')">
+        <label><input type="checkbox" class="portals" checked onchange="toggleCategory('portal_2')">
           <span style="color:orange;">■</span> Velo pond / Spiral Island</label><br>
-        <label><input type="checkbox" class="portals portal_3" checked onchange="toggleCategory('Portal_3')">
+        <label><input type="checkbox" class="portals" checked onchange="toggleCategory('portal_3')">
           <span style="color:yellow;">■</span> Palm Pond / Big survival water shrine</label><br>
-        <label><input type="checkbox" class="portals portal_4" checked onchange="toggleCategory('Portal_4')">
+        <label><input type="checkbox" class="portals" checked onchange="toggleCategory('portal_4')">
           <span style="color:brown;">■</span> Tranquil Landbridge / Cypresss Portal</label><br>
       </div>
-
     </div>
   </div>
-
 
   <div id="map"></div>
 
   <script>
-    const imageSize = [900, 1000]; // hoogte, breedte van afbeelding
+    const imageSize = [900, 1000];
     const map = L.map('map', {
       crs: L.CRS.Simple,
       minZoom: 0,
       maxZoom: 3,
       zoomSnap: 0.1,
-      maxBounds: [[0, 0], [imageSize[0], imageSize[1]]], // beperk panning
-      maxBoundsViscosity: 1.0 // hard limit bij rand
+      maxBounds: [[0, 0], [imageSize[0], imageSize[1]]],
+      maxBoundsViscosity: 1.0
     });
 
     const bounds = [[0, 0], [imageSize[0], imageSize[1]]];
-    const outerBounds = [[0, 0], [1080, 1920]]; // indien andere overlays groter zijn
+    const outerBounds = [[0, 0], [1080, 1920]];
 
-    // overlays
+    // Overlays
     const underwaterUnderlay = L.imageOverlay('WaterBackgroundUnderlay2.png', outerBounds).addTo(map);
     const baseMapOverlay = L.imageOverlay('LandMapOverlay.png', bounds).addTo(map);
     const underwaterTunnelsOverlay = L.imageOverlay('LandMapTransparent65Overlay.png', bounds);
     const tunnelOverlay = L.imageOverlay('Tunnels.png', bounds);
-    const zoneOverlay = L.imageOverlay('Zone.png', outerBounds);
+    const zoneOverlay = L.imageOverlay('Zones.png', bounds);
 
-    // Fit the map exactly to the image
-    map.fitBounds(outerBounds); // This fits the WATER image
-    map.setMaxBounds(outerBounds); // Also restrict panning to WATER size
-
-
+    map.fitBounds(outerBounds);
+    map.setMaxBounds(outerBounds);
 
     function setMap(view) {
-      // Remove overlays
       map.removeLayer(baseMapOverlay);
       map.removeLayer(underwaterTunnelsOverlay);
       map.removeLayer(tunnelOverlay);
@@ -158,7 +144,6 @@
       if (view === 'underwater') {
         underwaterTunnelsOverlay.addTo(map);
       } else if (view === 'tunnels') {
-        //baseMapTransparent.addTo(map);
         tunnelOverlay.addTo(map);
       } else if (view === 'zone') {
         baseMapOverlay.addTo(map);
@@ -187,76 +172,75 @@
         { name: "Red Shrine 2", coords: [803, 822] },
         { name: "Red Shrine 4", coords: [570, 460] },
         { name: "Big Red Shrine", coords: [340, 728] },
-        { name: "Red Shrine 7", coords: [202, 739] }, //calibrated
-        { name: "Red Shrine 8", coords: [102, 729] }, //calibrated
-        { name: "Red Shrine 10", coords: [295, 611] }, //calibrated
-        { name: "Red Shrine 12", coords: [384, 420] }, //calibrated
-        { name: "Red Shrine 13", coords: [668, 147] }, //calibrated
-
+        { name: "Red Shrine 7", coords: [202, 739] },
+        { name: "Red Shrine 8", coords: [102, 729] },
+        { name: "Red Shrine 10", coords: [295, 611] },
+        { name: "Red Shrine 12", coords: [384, 420] },
+        { name: "Red Shrine 13", coords: [668, 147] }
       ],
       landshrines_blueShrines: [
         { name: "Blue Shrine 2", coords: [795, 729] },
         { name: "Blue Shrine 4", coords: [710, 565] },
         { name: "Blue Shrine 5", coords: [409, 775] },
-        { name: "Blue Shrine 6", coords: [122, 674] }, //calibrated
-        { name: "Blue Shrine 9", coords: [128, 520] }, //calibrated
-        { name: "Blue Shrine 10", coords: [580, 347] }, //calibrated
-        { name: "Big Blue Shrine", coords: [510, 373] }, //calibrated
-        { name: "Blue Shrine 11", coords: [315, 457] }, //calibrated
-        { name: "Blue Shrine 13", coords: [605, 182] }, //calibrated
+        { name: "Blue Shrine 6", coords: [122, 674] },
+        { name: "Blue Shrine 9", coords: [128, 520] },
+        { name: "Blue Shrine 10", coords: [580, 347] },
+        { name: "Big Blue Shrine", coords: [510, 373] },
+        { name: "Blue Shrine 11", coords: [315, 457] },
+        { name: "Blue Shrine 13", coords: [605, 182] }
       ],
       landshrines_greenShrines: [
         { name: "Green Shrine 2", coords: [768, 615] },
         { name: "Green Shrine 3", coords: [668, 620] },
-        { name: "Green Shrine 5", coords: [242, 772] }, //calibrated
-        { name: "Green Shrine 7", coords: [118, 794] }, //calibrated
-        { name: "Green Shrine 8", coords: [220, 580] }, //calibrated
-        { name: "Green Shrine 10", coords: [428, 280] }, //calibrated
-        { name: "Green Shrine 11", coords: [542, 325] }, //calibrated
-        { name: "Big Green Shrine", coords: [277, 374] }, //calibrated
-        { name: "Green Shrine 12", coords: [639, 73] }, //calibrated
+        { name: "Green Shrine 5", coords: [242, 772] },
+        { name: "Green Shrine 7", coords: [118, 794] },
+        { name: "Green Shrine 8", coords: [220, 580] },
+        { name: "Green Shrine 10", coords: [428, 280] },
+        { name: "Green Shrine 11", coords: [542, 325] },
+        { name: "Big Green Shrine", coords: [277, 374] },
+        { name: "Green Shrine 12", coords: [639, 73] }
       ],
       watershrines_redShrines: [
         { name: "Red Shrine 1", coords: [825, 644] },
         { name: "Red Shrine 3", coords: [564, 694] },
         { name: "Red Shrine 5", coords: [520, 550] },
-        { name: "Red Shrine 9", coords: [62, 650] }, //calibrated
-        { name: "Red Shrine 14", coords: [634, 133] }, //calibrated
-        { name: "Red Shrine 11", coords: [332, 366] }, //calibrated
-        { name: "Big Red Water Shrine", coords: [245, 330] }, //calibrated
+        { name: "Red Shrine 9", coords: [62, 650] },
+        { name: "Red Shrine 14", coords: [634, 133] },
+        { name: "Red Shrine 11", coords: [332, 366] },
+        { name: "Big Red Water Shrine", coords: [245, 330] }
       ],
       watershrines_blueShrines: [
         { name: "Blue Shrine 3", coords: [697, 798] },
-        { name: "Big Blue Water Shrine", coords: [239, 675] }, //calibrated
-        { name: "Blue Shrine 9", coords: [238, 520] }, //calibrated
-        { name: "Blue Shrine 7", coords: [130, 450] }, //calibrated
-        { name: "Blue Shrine 15", coords: [122, 618] }, //calibrated
-        { name: "Blue Shrine 8", coords: [412, 612] }, //calibrated
+        { name: "Big Blue Water Shrine", coords: [239, 675] },
+        { name: "Blue Shrine 9", coords: [238, 520] },
+        { name: "Blue Shrine 7", coords: [130, 450] },
+        { name: "Blue Shrine 15", coords: [122, 618] },
+        { name: "Blue Shrine 8", coords: [412, 612] }
       ],
       watershrines_greenShrines: [
         { name: "Green Shrine 1", coords: [818, 802] },
-        { name: "Big Green Water Shrine", coords: [339, 440] }, //calibrated
-        { name: "Green Shrine 1", coords: [652, 63] }, //calibrated
-        { name: "Green Shrine 6", coords: [202, 790] }, //calibrated
-        { name: "Green Shrine 9", coords: [380, 298] }, //calibrated
-        { name: "Green Shrine 18", coords: [492, 630] }, //calibrated
-        { name: "Green Shrine 4", coords: [185, 495] },
+        { name: "Big Green Water Shrine", coords: [339, 440] },
+        { name: "Green Shrine 1", coords: [652, 63] },
+        { name: "Green Shrine 6", coords: [202, 790] },
+        { name: "Green Shrine 9", coords: [380, 298] },
+        { name: "Green Shrine 18", coords: [492, 630] },
+        { name: "Green Shrine 4", coords: [185, 495] }
       ],
       portal_1: [
         { name: "Ashen Island / Jungle Highlands", coords: [818, 752] },
-        { name: "Ashen Island / Jungle Highlands", coords: [342, 400] },
+        { name: "Ashen Island / Jungle Highlands", coords: [342, 400] }
       ],
       portal_2: [
         { name: "Velo pond / Spiral Island", coords: [440, 535] },
-        { name: "Velo pond / Spiral Island", coords: [162, 695] },
+        { name: "Velo pond / Spiral Island", coords: [162, 695] }
       ],
       portal_3: [
         { name: "Palm Pond / Big survival water shrine", coords: [200, 500] },
-        { name: "Palm Pond / Big survival water shrine", coords: [229, 675] },
+        { name: "Palm Pond / Big survival water shrine", coords: [229, 675] }
       ],
       portal_4: [
         { name: "Tranquil Landbridge / Cypresss Portal", coords: [340, 300] },
-        { name: "Tranquil Landbridge / Cypresss Portal", coords: [575, 138] }, //calibrated
+        { name: "Tranquil Landbridge / Cypresss Portal", coords: [575, 138] }
       ]
     };
 
@@ -283,42 +267,72 @@
           fillOpacity: 0.8
         }).bindPopup(`<b>${p.name}</b>`);
 
-        marker.addTo(layers[category]);
+        if (layers[category]) {
+          marker.addTo(layers[category]);
+          console.log(`Added marker: ${p.name} to layer ${category}`);
+        } else {
+          console.error(`Layer not found: ${category}`);
+        }
       });
     });
 
-    // Toggle function
+    // Toggle individual category
     function toggleCategory(category) {
       const checkbox = event.target;
       if (checkbox.checked) {
         layers[category].addTo(map);
+        console.log(`Added layer: ${category}`);
       } else {
         map.removeLayer(layers[category]);
+        console.log(`Removed layer: ${category}`);
+      }
+
+      // Update parent checkbox state for landshrines and watershrines
+      const group = category.split('_')[0];
+      if (group === 'landshrines' || group === 'watershrines') {
+        const checkboxes = document.querySelectorAll(`input.${group}`);
+        const parentCheckbox = document.getElementById(group);
+        parentCheckbox.checked = Array.from(checkboxes).some(cb => cb.checked);
       }
     }
 
+    // Toggle entire group
     function toggleGroup(groupName) {
       const mainCheckbox = document.getElementById(groupName);
-      const subCheckboxes = document.querySelectorAll(`.${groupName}`);
+      const subCheckboxes = document.querySelectorAll(`input.${groupName}`);
 
-      if (!mainCheckbox.checked) {
-        subCheckboxes.forEach(cb => {
-          cb.checked = false;
-          cb.disabled = true;
-          toggleCategory(cb.getAttribute('onchange').match(/'(.*?)'/)[1]); // update markers
+      if (groupName === 'portals') {
+        // Handle portals specifically
+        const portalLayers = ['portal_1', 'portal_2', 'portal_3', 'portal_4'];
+        subCheckboxes.forEach((cb, index) => {
+          cb.checked = mainCheckbox.checked;
+          cb.disabled = false; // Ensure subcheckboxes are always enabled
+          const layerKey = portalLayers[index];
+          if (mainCheckbox.checked) {
+            layers[layerKey].addTo(map);
+            console.log(`Added layer: ${layerKey}`);
+          } else {
+            map.removeLayer(layers[layerKey]);
+            console.log(`Removed layer: ${layerKey}`);
+          }
         });
       } else {
-        subCheckboxes.forEach(cb => {
-          cb.disabled = false;
-          cb.checked = true;
-          toggleCategory(cb.getAttribute('onchange').match(/'(.*?)'/)[1]); // update markers
+        // Handle landshrines and watershrines
+        const categories = ['redShrines', 'blueShrines', 'greenShrines'];
+        subCheckboxes.forEach((cb, index) => {
+          cb.checked = mainCheckbox.checked;
+          cb.disabled = false; // Ensure subcheckboxes are always enabled
+          const layerKey = `${groupName}_${categories[index]}`;
+          if (mainCheckbox.checked) {
+            layers[layerKey].addTo(map);
+            console.log(`Added layer: ${layerKey}`);
+          } else {
+            map.removeLayer(layers[layerKey]);
+            console.log(`Removed layer: ${layerKey}`);
+          }
         });
       }
     }
-
-    
-
-
   </script>
 </body>
 
