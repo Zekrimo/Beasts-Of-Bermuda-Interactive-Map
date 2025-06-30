@@ -7,5 +7,5 @@ This project, including all source code, assets, art and design, is provided for
 You are NOT permitted to copy, modify, redistribute, or use the source code or assets in any form, including for personal or commercial use, without explicit written permission from the author.
 
 For inquiries or licensing, contact: sonnyselten@gmail.com
-
+For Feedback or contribution, contact: sonnyselten@gmail.com
 
