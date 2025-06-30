@@ -61,13 +61,15 @@
     <button onclick="setMap('default')">Default Map</button>
     <button onclick="setMap('tunnels')">Tunnel View</button>
     <button onclick="setMap('underwater')">Underwater View</button>
+    <button onclick="setMap('zone')">Zone View</button>
 
-    <div class="legend">
-      <strong>Legenda:</strong><br>
-      <span style="color:brown;">■</span> Gebouwen<br>
-      <span style="color:blue;">■</span> Water<br>
-      <span style="color:green;">■</span> Jungle<br>
-    </div>
+<div class="legend">
+    <strong>Toon Categorieën:</strong><br>
+    <label><input type="checkbox" checked onchange="toggleCategory('redShrines')"> <span style="color:red;">■</span> Red Shrines</label><br>
+    <label><input type="checkbox" checked onchange="toggleCategory('blueShrines')"> <span style="color:blue;">■</span> Blue Shrines</label><br>
+    <label><input type="checkbox" checked onchange="toggleCategory('greenShrines')"> <span style="color:green;">■</span> Green Shrines</label><br>
+    <label><input type="checkbox" checked onchange="toggleCategory('portals')"> <span style="color:purple;">■</span> Portals</label><br>
+  </div>
   </div>
 
   <div id="map"></div>
@@ -111,20 +113,79 @@ map.setMaxBounds(outerBounds); // Also restrict panning to WATER size
       } else if (view === 'tunnels') {
         //baseMapTransparent.addTo(map);
         tunnelOverlay.addTo(map);
+      } else if (view === 'zone') {
+        baseMapOverlay.addTo(map);
+        zoneOverlay.addTo(map);
       } else if (view === 'default') {
         baseMapOverlay.addTo(map);
       }
     }
 
-    // Optional: voeg markers toe
-    const points = [
-      // { name: "Nest 1", coords: [600, 300] },
-    ];
+// Category layer groups
+const layers = {
+  redShrines: L.layerGroup().addTo(map),
+  blueShrines: L.layerGroup().addTo(map),
+  greenShrines: L.layerGroup().addTo(map),
+  portals: L.layerGroup().addTo(map)
+};
 
-    points.forEach(p => {
-      L.marker(p.coords).addTo(map)
-        .bindPopup(`<b>${p.name}</b>`);
-    });
+// Example points (coordinates can be adjusted)
+const categoryPoints = {
+  redShrines: [
+    { name: "Red Shrine 1", coords: [825, 644]  },
+    { name: "Red Shrine 2", coords: [803, 822] },
+    { name: "Red Shrine 3", coords: [564, 694] },
+    { name: "Red Shrine 4", coords: [570, 460] },
+    { name: "Red Shrine 5", coords: [520, 550]  }
+  ],
+  blueShrines: [
+    { name: "Blue Shrine 2", coords: [795, 729] },
+    { name: "Blue Shrine 3", coords: [697, 798] },
+    { name: "Blue Shrine 4", coords: [710, 565] }
+  ],
+  greenShrines: [
+    { name: "Green Shrine 1", coords: [818, 802] },
+    { name: "Green Shrine 2", coords: [768, 615] },
+    { name: "Green Shrine 3", coords: [668, 620] },
+    { name: "Green Shrine 4", coords: [185, 495] },
+  ],
+  portals: [
+    { name: "Portal A", coords: [818, 752] },
+    { name: "Portal B", coords: [440, 535] }
+  ]
+};
+
+// Add markers to respective layer groups
+Object.entries(categoryPoints).forEach(([category, points]) => {
+  points.forEach(p => {
+    const color = {
+      redShrines: "red",
+      blueShrines: "blue",
+      greenShrines: "green",
+      portals: "purple"
+    }[category];
+
+    const marker = L.circleMarker(p.coords, {
+      radius: 6,
+      color: color,
+      fillColor: color,
+      fillOpacity: 0.8
+    }).bindPopup(`<b>${p.name}</b>`);
+    
+    marker.addTo(layers[category]);
+  });
+});
+
+// Toggle function
+function toggleCategory(category) {
+  const checkbox = event.target;
+  if (checkbox.checked) {
+    layers[category].addTo(map);
+  } else {
+    map.removeLayer(layers[category]);
+  }
+}
+
   </script>
 </body>
 </html>
