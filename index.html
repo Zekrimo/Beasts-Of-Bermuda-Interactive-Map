@@ -64,7 +64,8 @@
     <button onclick="setMap('default')">Default Map</button>
     <button onclick="setMap('tunnels')">Tunnel View</button>
     <button onclick="setMap('underwater')">Underwater View</button>
-    <button onclick="setMap('zone')">Zone View</button>
+    <button onclick="setMap('regions')">Region View</button>
+    <button onclick="setMap('zone')">Event Zone View</button>
 
     <div class="legend">
       <strong>Toggle Markers:</strong><br>
@@ -123,14 +124,15 @@
     });
 
     const bounds = [[0, 0], [imageSize[0], imageSize[1]]];
-    const outerBounds = [[0, 0], [1080, 1920]];
+    const outerBounds = [[0, 0], [1080, 1980]];
 
     // Overlays
     const underwaterUnderlay = L.imageOverlay('WaterBackgroundUnderlay2.png', outerBounds).addTo(map);
     const baseMapOverlay = L.imageOverlay('LandMapOverlay.png', bounds).addTo(map);
     const underwaterTunnelsOverlay = L.imageOverlay('LandMapTransparent65Overlay.png', bounds);
     const tunnelOverlay = L.imageOverlay('Tunnels.png', bounds);
-    const zoneOverlay = L.imageOverlay('Zones.png', bounds);
+    const regionOverlay = L.imageOverlay('Zones.png', bounds);
+    const zoneOverlay = L.imageOverlay('LandMapEventzoneOverlay.png', bounds);
 
     map.fitBounds(outerBounds);
     map.setMaxBounds(outerBounds);
@@ -140,11 +142,15 @@
       map.removeLayer(underwaterTunnelsOverlay);
       map.removeLayer(tunnelOverlay);
       map.removeLayer(zoneOverlay);
+      map.removeLayer(regionOverlay);
 
       if (view === 'underwater') {
         underwaterTunnelsOverlay.addTo(map);
       } else if (view === 'tunnels') {
         tunnelOverlay.addTo(map);
+      } else if (view === 'regions') {
+        baseMapOverlay.addTo(map);
+        regionOverlay.addTo(map);
       } else if (view === 'zone') {
         baseMapOverlay.addTo(map);
         zoneOverlay.addTo(map);
