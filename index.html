@@ -4,8 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Beasts of Bermuda Map</title>
+  <!-- Leaflet CSS for interactive maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
+    /* Basic page and map styling */
     html,
     body {
       margin: 0;
@@ -18,6 +20,7 @@
       height: 100%;
     }
 
+    /* Styling for the map controls panel */
     .map-controls {
       position: absolute;
       top: 10px;
@@ -46,6 +49,7 @@
       background: #bbb;
     }
 
+    /* Legend styling */
     .legend {
       margin-top: 12px;
       font-size: 14px;
@@ -56,20 +60,25 @@
       margin-right: 4px;
     }
   </style>
+  <!-- Leaflet JS for interactive maps -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 
 <body>
+  <!-- Map controls: buttons to switch map overlays and checkboxes to toggle marker groups/categories -->
   <div class="map-controls">
+    <!-- Overlay switching buttons -->
     <button onclick="setMap('default')">Default Map</button>
     <button onclick="setMap('tunnels')">Tunnel View (TODO)</button>
     <button onclick="setMap('underwater')">Underwater View (TODO)</button>
     <button onclick="setMap('regions')">Region View</button>
     <button onclick="setMap('zone')">Event Zone View</button>
 
+    <!-- Marker legend and toggles -->
     <div class="legend">
       <strong>Toggle Markers:</strong><br>
 
+      <!-- Landshrines group toggle and subcategory toggles -->
       <label>
         <input type="checkbox" id="landshrines" checked onchange="toggleGroup('landshrines')"> Landshrines
       </label>
@@ -82,6 +91,7 @@
           <span style="color:green;">■</span> Green Shrines</label><br>
       </div>
 
+      <!-- Watershrines group toggle and subcategory toggles -->
       <label>
         <input type="checkbox" id="watershrines" checked onchange="toggleGroup('watershrines')"> Watershrines
       </label>
@@ -94,6 +104,7 @@
           <span style="color:lightgreen;">■</span> Green Shrines</label><br>
       </div>
 
+      <!-- Portals group toggle and subcategory toggles -->
       <label>
         <input type="checkbox" id="portals" checked onchange="toggleGroup('portals')"> Portals
       </label>
@@ -110,40 +121,67 @@
     </div>
   </div>
 
+  <!-- Main map container -->
   <div id="map"></div>
 
   <script>
+    // --- MAP INITIALIZATION ---
+
+    // Size of the main map image (width, height)
     const imageSize = [900, 1000];
+
+    // Create the Leaflet map using a simple CRS (coordinate reference system)
     const map = L.map('map', {
-      crs: L.CRS.Simple,
+      crs: L.CRS.Simple, // Use simple pixel coordinates
       minZoom: 0,
       maxZoom: 3,
-      zoomSnap: 0.1,
-      maxBounds: [[0, 0], [imageSize[0], imageSize[1]]],
-      maxBoundsViscosity: 1.0
+      zoomSnap: 0.1, // Allow smooth zooming
+      maxBounds: [[0, 0], [imageSize[0], imageSize[1]]], // Restrict panning to image bounds
+      maxBoundsViscosity: 1.0 // Prevent panning outside bounds
     });
 
+    // Bounds for overlays: main map and outer background
     const bounds = [[0, 0], [imageSize[0], imageSize[1]]];
     const outerBounds = [[0, 0], [1080, 1980]];
 
-    // Overlays
+    // --- MAP OVERLAYS ---
+
+    // Underwater background overlay (always visible)
     const underwaterUnderlay = L.imageOverlay('WaterBackgroundUnderlay2.png', outerBounds).addTo(map);
+
+    // Main map overlay (default view)
     const baseMapOverlay = L.imageOverlay('LandMapOverlay.png', bounds).addTo(map);
+
+    // Overlay for underwater tunnels (used in underwater view)
     const underwaterTunnelsOverlay = L.imageOverlay('LandMapTransparent65Overlay.png', bounds);
+
+    // Overlay for tunnels (used in tunnel view)
     const tunnelOverlay = L.imageOverlay('Tunnels.png', bounds);
+
+    // Overlay for regions (used in region view)
     const regionOverlay = L.imageOverlay('Zones.png', bounds);
+
+    // Overlay for event zones (used in zone view)
     const zoneOverlay = L.imageOverlay('LandMapEventzoneOverlay.png', bounds);
 
+    // Fit the map to the outer bounds and restrict panning
     map.fitBounds(outerBounds);
     map.setMaxBounds(outerBounds);
 
+    /**
+     * Switches the visible overlays based on the selected view.
+     * Only the relevant overlays are shown for each view.
+     * @param {string} view - The selected map view ('default', 'tunnels', 'underwater', 'regions', 'zone')
+     */
     function setMap(view) {
+      // Remove all overlays except the underwater underlay
       map.removeLayer(baseMapOverlay);
       map.removeLayer(underwaterTunnelsOverlay);
       map.removeLayer(tunnelOverlay);
       map.removeLayer(zoneOverlay);
       map.removeLayer(regionOverlay);
 
+      // Add overlays based on selected view
       if (view === 'underwater') {
         underwaterTunnelsOverlay.addTo(map);
       } else if (view === 'tunnels') {
@@ -159,7 +197,12 @@
       }
     }
 
-    // Category layer groups
+    // --- MARKER LAYER GROUPS ---
+
+    /**
+     * Each marker category (e.g., landshrines_redShrines) gets its own Leaflet LayerGroup.
+     * This allows toggling visibility of all markers in a category at once.
+     */
     const layers = {
       landshrines_redShrines: L.layerGroup().addTo(map),
       landshrines_blueShrines: L.layerGroup().addTo(map),
@@ -173,7 +216,12 @@
       portal_4: L.layerGroup().addTo(map)
     };
 
+    /**
+     * Marker data for each category.
+     * Each entry contains a list of marker objects with a name and coordinates.
+     */
     const categoryPoints = {
+      // Landshrines: red, blue, green
       landshrines_redShrines: [
         { name: "Red Shrine 1", coords: [803, 822] },
         { name: "Red Shrine 2", coords: [570, 460] },
@@ -206,6 +254,7 @@
         { name: "Big Green Shrine", coords: [277, 374] },
         { name: "Green Shrine 8", coords: [639, 73] }
       ],
+      // Watershrines: red, blue, green
       watershrines_redShrines: [
         { name: "Red WaterShrine 1", coords: [825, 644] },
         { name: "Red WaterShrine 2", coords: [564, 694] },
@@ -233,6 +282,7 @@
         { name: "Green WaterShrine 5", coords: [492, 630] },
         { name: "Green WaterShrine 6", coords: [185, 495] }
       ],
+      // Portals: 4 types
       portal_1: [
         { name: "Ashen Island / Jungle Highlands", coords: [818, 752] },
         { name: "Ashen Island / Jungle Highlands", coords: [342, 400] }
@@ -251,9 +301,15 @@
       ]
     };
 
-    // Add markers to respective layer groups
+    // --- ADD MARKERS TO LAYER GROUPS ---
+
+    /**
+     * For each category, create circle markers for each point and add to the corresponding LayerGroup.
+     * Marker color is determined by category.
+     */
     Object.entries(categoryPoints).forEach(([category, points]) => {
       points.forEach(p => {
+        // Assign marker color based on category
         const color = {
           landshrines_redShrines: "red",
           landshrines_blueShrines: "blue",
@@ -267,6 +323,7 @@
           portal_4: "brown"
         }[category];
 
+        // Create a circle marker with popup
         const marker = L.circleMarker(p.coords, {
           radius: 6,
           color: color,
@@ -274,6 +331,7 @@
           fillOpacity: 0.8
         }).bindPopup(`<b>${p.name}</b>`);
 
+        // Add marker to its LayerGroup
         if (layers[category]) {
           marker.addTo(layers[category]);
           console.log(`Added marker: ${p.name} to layer ${category}`);
@@ -283,7 +341,13 @@
       });
     });
 
-    // Toggle individual category
+    // --- MARKER TOGGLING FUNCTIONS ---
+
+    /**
+     * Toggles visibility of a single marker category (LayerGroup) based on checkbox state.
+     * Also updates the parent group checkbox if all subcategories are unchecked.
+     * @param {string} category - The category key (e.g., 'landshrines_redShrines')
+     */
     function toggleCategory(category) {
       const checkbox = event.target;
       if (checkbox.checked) {
@@ -299,21 +363,26 @@
       if (group === 'landshrines' || group === 'watershrines') {
         const checkboxes = document.querySelectorAll(`input.${group}`);
         const parentCheckbox = document.getElementById(group);
+        // Parent is checked if any subcategory is checked
         parentCheckbox.checked = Array.from(checkboxes).some(cb => cb.checked);
       }
     }
 
-    // Toggle entire group
+    /**
+     * Toggles visibility of all marker categories in a group (e.g., all landshrines).
+     * Sets all subcategory checkboxes to match the group checkbox.
+     * @param {string} groupName - The group key ('landshrines', 'watershrines', 'portals')
+     */
     function toggleGroup(groupName) {
       const mainCheckbox = document.getElementById(groupName);
       const subCheckboxes = document.querySelectorAll(`input.${groupName}`);
 
       if (groupName === 'portals') {
-        // Handle portals specifically
+        // Portals have 4 subcategories
         const portalLayers = ['portal_1', 'portal_2', 'portal_3', 'portal_4'];
         subCheckboxes.forEach((cb, index) => {
           cb.checked = mainCheckbox.checked;
-          cb.disabled = false; // Ensure subcheckboxes are always enabled
+          cb.disabled = false; // Always enable subcheckboxes
           const layerKey = portalLayers[index];
           if (mainCheckbox.checked) {
             layers[layerKey].addTo(map);
@@ -324,11 +393,11 @@
           }
         });
       } else {
-        // Handle landshrines and watershrines
+        // Landshrines and watershrines have red, blue, green subcategories
         const categories = ['redShrines', 'blueShrines', 'greenShrines'];
         subCheckboxes.forEach((cb, index) => {
           cb.checked = mainCheckbox.checked;
-          cb.disabled = false; // Ensure subcheckboxes are always enabled
+          cb.disabled = false;
           const layerKey = `${groupName}_${categories[index]}`;
           if (mainCheckbox.checked) {
             layers[layerKey].addTo(map);
