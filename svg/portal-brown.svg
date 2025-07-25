@@ -1,0 +1,24 @@
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="innerShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feFlood flood-color="#000000" flood-opacity="0.3"/>
+      <feComposite in="SourceGraphic"/>
+      <feGaussianBlur stdDeviation="1"/>
+      <feOffset dx="0.5" dy="0.5"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <!-- Outer ring -->
+  <circle cx="12" cy="12" r="11" fill="none" stroke="#A16207" stroke-width="2" filter="url(#dropShadow)"/>
+  <!-- Inner swirl pattern -->
+  <path d="M12 3 A9 9 0 0 1 21 12 A7 7 0 0 1 12 19 A5 5 0 0 1 7 12 A3 3 0 0 1 12 9" 
+        fill="none" stroke="#D97706" stroke-width="1.5" opacity="0.8" filter="url(#dropShadow)"/>
+  <!-- Center portal -->
+  <circle cx="12" cy="12" r="4" fill="#92400E" opacity="0.6" filter="url(#innerShadow)"/>
+  <circle cx="12" cy="12" r="2" fill="#78350F" opacity="0.9" filter="url(#innerShadow)"/>
+  <!-- Glow effect -->
+  <circle cx="12" cy="12" r="6" fill="none" stroke="#FDE68A" stroke-width="0.5" opacity="0.4"/>
+</svg>
