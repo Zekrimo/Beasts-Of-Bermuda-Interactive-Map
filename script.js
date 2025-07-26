@@ -98,73 +98,75 @@ const layers = {
 const categoryPoints = {
   // Landshrines: red, blue, green
   landshrines_redShrines: [
-    { name: "Red Shrine 1", coords: [803, 822] },
-    { name: "Red Shrine 2", coords: [570, 460] },
-    { name: "Big Red Shrine", coords: [340, 728] },
-    { name: "Red Shrine 3", coords: [202, 739] },
-    { name: "Red Shrine 4", coords: [102, 729] },
-    { name: "Red Shrine 5", coords: [295, 611] },
-    { name: "Red Shrine 6", coords: [384, 420] },
-    { name: "Red Shrine 7", coords: [668, 147] }
+    { name: "Red Shrine 1", coords: [803, 822], big: false },
+    { name: "Red Shrine 2", coords: [570, 460], big: false },
+    { name: "Big Red Shrine", coords: [340, 728], big: true },
+    { name: "Red Shrine 3", coords: [202, 739], big: false },
+    { name: "Red Shrine 4", coords: [102, 729], big: false },
+    { name: "Red Shrine 5", coords: [295, 611], big: false },
+    { name: "Red Shrine 6", coords: [384, 420], big: false },
+    { name: "Red Shrine 7", coords: [668, 147], big: false }
   ],
   landshrines_blueShrines: [
-    { name: "Blue Shrine 1", coords: [795, 729] },
-    { name: "Blue Shrine 2", coords: [710, 565] },
-    { name: "Blue Shrine 3", coords: [409, 775] },
-    { name: "Blue Shrine 4", coords: [122, 674] },
-    { name: "Blue Shrine 5", coords: [128, 520] },
-    { name: "Blue Shrine 6", coords: [580, 347] },
-    { name: "Big Blue Shrine", coords: [510, 373] },
-    { name: "Blue Shrine 7", coords: [315, 457] },
-    { name: "Blue Shrine 8", coords: [605, 182] }
+    { name: "Blue Shrine 1", coords: [795, 729], big: false },
+    { name: "Blue Shrine 2", coords: [710, 565], big: false },
+    { name: "Blue Shrine 3", coords: [409, 775], big: false },
+    { name: "Blue Shrine 4", coords: [122, 674], big: false },
+    { name: "Blue Shrine 5", coords: [128, 520], big: false },
+    { name: "Big Blue Shrine", coords: [580, 347], big: true },
+    { name: "Blue Shrine 6", coords: [510, 373], big: false },
+    { name: "Blue Shrine 7", coords: [315, 457], big: false },
+    { name: "Blue Shrine 8", coords: [605, 182], big: false }
   ],
   landshrines_greenShrines: [
-    { name: "Green Shrine 1", coords: [768, 615] },
-    { name: "Green Shrine 2", coords: [668, 620] },
-    { name: "Green Shrine 3", coords: [242, 772] },
-    { name: "Green Shrine 4", coords: [118, 794] },
-    { name: "Green Shrine 5", coords: [220, 580] },
-    { name: "Green Shrine 6", coords: [428, 280] },
-    { name: "Green Shrine 7", coords: [542, 325] },
-    { name: "Big Green Shrine", coords: [277, 374] },
-    { name: "Green Shrine 8", coords: [639, 73] }
+    { name: "Green Shrine 1", coords: [768, 615], big: false },
+    { name: "Green Shrine 2", coords: [668, 620], big: false },
+    { name: "Green Shrine 3", coords: [242, 772], big: false },
+    { name: "Green Shrine 4", coords: [118, 794], big: false },
+    { name: "Green Shrine 5", coords: [220, 580], big: false },
+    { name: "Green Shrine 6", coords: [428, 280], big: false },
+    { name: "Green Shrine 7", coords: [542, 325], big: false },
+    { name: "Big Green Shrine", coords: [277, 374], big: true },
+    { name: "Green Shrine 8", coords: [639, 73], big: false }
   ],
+
   // Watershrines: red, blue, green
   watershrines_redShrines: [
-    { name: "Red WaterShrine 1", coords: [825, 644] },
-    { name: "Red WaterShrine 2", coords: [564, 694] },
-    { name: "Red WaterShrine 3", coords: [520, 550] },
-    { name: "Red WaterShrine 4", coords: [62, 650] },
-    { name: "Red WaterShrine 5", coords: [634, 133] },
-    { name: "Red WaterShrine 6", coords: [332, 366] },
-    { name: "Big Red WaterShrine", coords: [245, 330] }
+    { name: "Red WaterShrine 1", coords: [825, 644], big: false },
+    { name: "Red WaterShrine 2", coords: [564, 694], big: false },
+    { name: "Red WaterShrine 3", coords: [520, 550], big: false },
+    { name: "Red WaterShrine 4", coords: [62, 650], big: false },
+    { name: "Red WaterShrine 5", coords: [634, 133], big: false },
+    { name: "Red WaterShrine 6", coords: [332, 366], big: false },
+    { name: "Big Red WaterShrine", coords: [245, 330], big: true }
   ],
   watershrines_blueShrines: [
-    { name: "Blue WaterShrine 1", coords: [697, 798] },
-    { name: "Big Blue WaterShrine", coords: [239, 675] },
-    { name: "Blue WaterShrine 2", coords: [238, 520] },
-    { name: "Blue WaterShrine 3", coords: [130, 450] },
-    { name: "Blue WaterShrine 4", coords: [122, 618] },
-    { name: "Blue WaterShrine 5", coords: [412, 612] },
-    { name: "Blue WaterShrine 6", coords: [589, 167] }
+    { name: "Blue WaterShrine 1", coords: [697, 798], big: false },
+    { name: "Big Blue WaterShrine", coords: [239, 675], big: true },
+    { name: "Blue WaterShrine 2", coords: [238, 520], big: false },
+    { name: "Blue WaterShrine 3", coords: [130, 450], big: false },
+    { name: "Blue WaterShrine 4", coords: [122, 618], big: false },
+    { name: "Blue WaterShrine 5", coords: [412, 612], big: false },
+    { name: "Blue WaterShrine 6", coords: [589, 167], big: false }
   ],
   watershrines_greenShrines: [
-    { name: "Green WaterShrine 1", coords: [818, 802] },
-    { name: "Big Green Water Shrine", coords: [339, 440] },
-    { name: "Green WaterShrine 2", coords: [652, 63] },
-    { name: "Green WaterShrine 3", coords: [202, 790] },
-    { name: "Green WaterShrine 4", coords: [380, 298] },
-    { name: "Green WaterShrine 5", coords: [492, 630] },
-    { name: "Green WaterShrine 6", coords: [185, 495] }
+    { name: "Green WaterShrine 1", coords: [818, 802], big: false },
+    { name: "Big Green Water Shrine", coords: [339, 440], big: true },
+    { name: "Green WaterShrine 2", coords: [652, 63], big: false },
+    { name: "Green WaterShrine 3", coords: [202, 790], big: false },
+    { name: "Green WaterShrine 4", coords: [380, 298], big: false },
+    { name: "Green WaterShrine 5", coords: [492, 630], big: false },
+    { name: "Green WaterShrine 6", coords: [185, 495], big: false }
   ],
+
   // Portals: 4 types
   portal_1: [
     { name: "Ashen Island / Jungle Highlands", coords: [818, 752] },
     { name: "Ashen Island / Jungle Highlands", coords: [342, 400] }
   ],
   portal_2: [
-    { name: "Velo pond / Spiral Island", coords: [440, 535] },
-    { name: "Velo pond / Spiral Island", coords: [162, 695] }
+    { name: "Velo Pond / Spiral Island", coords: [440, 535] },
+    { name: "Velo Pond / Spiral Island", coords: [162, 695] }
   ],
   portal_3: [
     { name: "Palm Pond / Big survival water shrine", coords: [200, 500] },
@@ -201,9 +203,9 @@ Object.entries(categoryPoints).forEach(([category, points]) => {
       // Create portal icon based on category
       const portalIcon = L.icon({
         iconUrl: portalIcons[category],
-        iconSize: [24, 24],
-        iconAnchor: [12, 12],
-        popupAnchor: [0, -12]
+        iconSize: [35, 35],
+        iconAnchor: [17.5, 17.5],
+        popupAnchor: [0, -17.5]
       });
       
       marker = L.marker(p.coords, { icon: portalIcon }).bindPopup(`<b>${p.name}</b>`);
@@ -220,21 +222,30 @@ Object.entries(categoryPoints).forEach(([category, points]) => {
     } else {
 
       // Use custom SVG icons for shrines
-      const shrineIcons = {
-        landshrines_redShrines: 'svg/shrine-red.svg',
-        landshrines_blueShrines: 'svg/shrine-blue.svg',
-        landshrines_greenShrines: 'svg/shrine-green.svg',
-        watershrines_redShrines: 'svg/water-shrine-red.svg',
-        watershrines_blueShrines: 'svg/water-shrine-blue.svg',
-        watershrines_greenShrines: 'svg/water-shrine-green.svg'
-      };
+      const shrineIcons = p.big === true
+        ? {
+            landshrines_redShrines: 'svg/shrine-red-big.svg',
+            landshrines_blueShrines: 'svg/shrine-blue-big.svg',
+            landshrines_greenShrines: 'svg/shrine-green-big.svg',
+            watershrines_redShrines: 'svg/water-shrine-red-big.svg',
+            watershrines_blueShrines: 'svg/water-shrine-blue-big.svg',
+            watershrines_greenShrines: 'svg/water-shrine-green-big.svg'
+          }
+        : {
+            landshrines_redShrines: 'svg/shrine-red.svg',
+            landshrines_blueShrines: 'svg/shrine-blue.svg',
+            landshrines_greenShrines: 'svg/shrine-green.svg',
+            watershrines_redShrines: 'svg/water-shrine-red.svg',
+            watershrines_blueShrines: 'svg/water-shrine-blue.svg',
+            watershrines_greenShrines: 'svg/water-shrine-green.svg'
+          };
       
       // Create shrine icon based on category
       const shrineIcon = L.icon({
         iconUrl: shrineIcons[category],
-        iconSize: [24, 24],
-        iconAnchor: [12, 12],
-        popupAnchor: [0, -12]
+        iconSize: [50, 50],
+        iconAnchor: [25, 25],
+        popupAnchor: [0, -25]
       });
 
       marker = L.marker(p.coords, { icon: shrineIcon }).bindPopup(`<b>${p.name}</b>`);

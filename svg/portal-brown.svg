@@ -1,24 +1,124 @@
-<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<!-- Import Styles -->
+<?xml-stylesheet type="text/css" href="../style.css"?>
+<svg width="250" height="250" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" aria-label="portal icon with a glowing effect">
+
+  <style type="text/css" href="../style.css">
+    :root {
+      /* Portal colors */
+      /* Portal Brown */
+      --portal-brown-primary: #A16207;
+      --portal-brown-secondary: #78350F;
+      --portal-brown-tertiary: #4B2C0F;
+
+      /* Portal Yellow */
+      --portal-yellow-primary: #EAB308;
+      --portal-yellow-secondary: #CA8A04;
+      --portal-yellow-tertiary: #A16207;
+
+      /* Portal Orange */
+      --portal-orange-primary: #FDE68A;
+      --portal-orange-secondary: #FACC15;
+      --portal-orange-tertiary: #F59E0B;
+      
+      /* Portal Purple */
+      --portal-purple-primary: #ff00ff;
+      --portal-purple-secondary: #9900ff;
+      --portal-purple-tertiary: #330099;
+      
+      /* Metal colors */
+      --metal-light: #aab;
+      --metal-mid: #556;
+      --metal-dark: #778;
+      --metal-border: #222;
+      --metal-highlight: #ccc;
+      
+      /* Gem colors */
+      --gem-color: #0ff;
+      --gem-highlight: #fff;
+      
+      /* Frame colors */
+      --frame-dark: #333;
+      --frame-inner: #222;
+      
+      /* Effect colors */
+      --glow-white: #fff;
+      --glow-pink: #fcc;
+    }
+
+    /* Portal Glow Animation */
+    @keyframes portal-glow {
+      0% { stop-opacity: 1; }
+      50% { stop-opacity: 0.6; }
+      100% { stop-opacity: 1; }
+    }
+
+    #portal-glow stop {
+      animation: portal-glow 1.5s infinite ease-in-out;
+    }
+    
+  </style>
+
   <defs>
-    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.4"/>
-    </filter>
-    <filter id="innerShadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feFlood flood-color="#000000" flood-opacity="0.3"/>
-      <feComposite in="SourceGraphic"/>
-      <feGaussianBlur stdDeviation="1"/>
-      <feOffset dx="0.5" dy="0.5"/>
-      <feComposite in="SourceGraphic"/>
+    <!-- Portal Glow -->
+    <radialGradient id="portal-glow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:var(--portal-brown-primary); stop-opacity:1"></stop>
+      <stop offset="60%" style="stop-color:var(--portal-brown-secondary); stop-opacity:1"></stop>
+      <stop offset="100%" style="stop-color:var(--portal-brown-tertiary); stop-opacity:1"></stop>
+    </radialGradient>
+    
+
+    <!-- Metallic Sheen -->
+    <linearGradient id="metal-sheen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:var(--metal-light); stop-opacity:1" />
+      <stop offset="50%" style="stop-color:var(--metal-mid); stop-opacity:1" />
+      <stop offset="100%" style="stop-color:var(--metal-dark); stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Gem Glow -->
+    <filter id="gem-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
   </defs>
-  <!-- Outer ring -->
-  <circle cx="12" cy="12" r="11" fill="none" stroke="#A16207" stroke-width="2" filter="url(#dropShadow)"/>
-  <!-- Inner swirl pattern -->
-  <path d="M12 3 A9 9 0 0 1 21 12 A7 7 0 0 1 12 19 A5 5 0 0 1 7 12 A3 3 0 0 1 12 9" 
-        fill="none" stroke="#D97706" stroke-width="1.5" opacity="0.8" filter="url(#dropShadow)"/>
-  <!-- Center portal -->
-  <circle cx="12" cy="12" r="4" fill="#92400E" opacity="0.6" filter="url(#innerShadow)"/>
-  <circle cx="12" cy="12" r="2" fill="#78350F" opacity="0.9" filter="url(#innerShadow)"/>
-  <!-- Glow effect -->
-  <circle cx="12" cy="12" r="6" fill="none" stroke="#FDE68A" stroke-width="0.5" opacity="0.4"/>
+
+  <g transform="translate(125, 125)" style="filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.8));">
+    <!-- Portal Frame Spikes-->
+    <path d="M 0 -120 L 25 -85 L 0 -95 L -25 -85 Z" fill="var(--frame-dark)" transform="rotate(0)" />
+    <path d="M 0 -120 L 25 -85 L 0 -95 L -25 -85 Z" fill="var(--frame-dark)" transform="rotate(45)" />
+    <path d="M 0 -120 L 25 -85 L 0 -95 L -25 -85 Z" fill="var(--frame-dark)" transform="rotate(90)" />
+    <path d="M 0 -120 L 25 -85 L 0 -95 L -25 -85 Z" fill="var(--frame-dark)" transform="rotate(135)" />
+    <path d="M 0 -120 L 25 -85 L 0 -95 L -25 -85 Z" fill="var(--frame-dark)" transform="rotate(180)" />
+    <path d="M 0 -120 L 25 -85 L 0 -95 L -25 -85 Z" fill="var(--frame-dark)" transform="rotate(225)" />
+    <path d="M 0 -120 L 25 -85 L 0 -95 L -25 -85 Z" fill="var(--frame-dark)" transform="rotate(270)" />
+    <path d="M 0 -120 L 25 -85 L 0 -95 L -25 -85 Z" fill="var(--frame-dark)" transform="rotate(315)" />
+
+    <!-- Outer Portal Frame -->
+    <circle cx="0" cy="0" r="90" fill="url(#metal-sheen)" stroke="var(--metal-border)" stroke-width="4"/>
+    <circle cx="0" cy="0" r="80" fill="none" stroke="var(--metal-highlight)" stroke-width="1" stroke-opacity="0.5"/>
+    <circle cx="0" cy="0" r="75" fill="var(--frame-inner)"/>
+
+    <!-- Inner Portal -->
+    <circle cx="0" cy="0" r="65" fill="url(#portal-glow)"/>
+
+    <path d="M -40 0 C -20 -40, 20 -40, 40 0" stroke="var(--glow-white)" stroke-width="2" fill="none" stroke-opacity="0.6" style="filter: blur(1px);"/>
+    <path d="M -35 10 C 0 50, 0 -30, 35 -10" stroke="var(--glow-pink)" stroke-width="1.5" fill="none" stroke-opacity="0.4"/>
+
+    <!-- Gems Glow on Frame -->
+    <g filter="url(#gem-glow)">
+      <circle cx="0" cy="-82" r="6" fill="var(--gem-color)"/>
+      <circle cx="82" cy="0" r="6" fill="var(--gem-color)"/>
+      <circle cx="0" cy="82" r="6" fill="var(--gem-color)"/>
+      <circle cx="-82" cy="0" r="6" fill="var(--gem-color)"/>
+    </g>
+
+    <!-- Gems on Frame -->
+    <circle cx="0" cy="-82" r="3" fill="var(--gem-highlight)" fill-opacity="0.8"/>
+    <circle cx="82" cy="0" r="3" fill="var(--gem-highlight)" fill-opacity="0.8"/>
+    <circle cx="0" cy="82" r="3" fill="var(--gem-highlight)" fill-opacity="0.8"/>
+    <circle cx="-82" cy="0" r="3" fill="var(--gem-highlight)" fill-opacity="0.8"/>
+
+  </g>
 </svg>

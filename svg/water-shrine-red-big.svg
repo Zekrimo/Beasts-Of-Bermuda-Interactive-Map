@@ -23,6 +23,11 @@
     --stone-mid: #434B60; 
     --stone-dark: #505970; 
 
+    /* Stone colors Gold */
+    --stone-light-gold: #d4af37ff;
+    --stone-mid-gold: #b5942bff;
+    --stone-dark-gold: #8c6a1fff;
+
   }
 
   /* Animate Bubbles */
@@ -54,15 +59,15 @@
   <defs>
     <!-- Pearl Glow -->
     <radialGradient id="pearl-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" style="stop-color:var(--shrine-green-primary)" /> 
-      <stop offset="100%" style="stop-color:var(--shrine-green-secondary)" /> 
+      <stop offset="0%" style="stop-color:var(--shrine-red-primary)" /> 
+      <stop offset="100%" style="stop-color:var(--shrine-red-secondary)" /> 
     </radialGradient>
     
     <!-- Stone Base -->
     <linearGradient id="underwater-stone" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:var(--stone-light); stop-opacity:1" />
-      <stop offset="50%" style="stop-color:var(--stone-mid); stop-opacity:1" />
-      <stop offset="100%" style="stop-color:var(--stone-dark); stop-opacity:1" />
+      <stop offset="0%" style="stop-color:var(--stone-light-gold); stop-opacity:1" />
+      <stop offset="50%" style="stop-color:var(--stone-mid-gold); stop-opacity:1" />
+      <stop offset="100%" style="stop-color:var(--stone-dark-gold); stop-opacity:1" />
     </linearGradient>
 
     <!-- Glow Effect -->
@@ -89,6 +94,7 @@
       <circle cx="5" cy="-20" r="10" fill="#fff" fill-opacity="0.3"/>
     </g>
 
+    <!-- Bubble Effects -->
     <!-- Bubbles -->
     <g fill="#AFEEEE" fill-opacity="0.6">
       <circle cx="-25" cy="40" r="4" stroke="#fff" stroke-width="1" id="bubble1"></circle>

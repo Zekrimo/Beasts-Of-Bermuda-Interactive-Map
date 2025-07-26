@@ -20,6 +20,11 @@
     --stone-light: #888;
     --stone-mid: #555;
     --stone-dark: #666;
+
+    /* Stone colors Gold */
+    --stone-light-gold: #d4af37ff;
+    --stone-mid-gold: #b5942bff;
+    --stone-dark-gold: #8c6a1fff;
     
   }
 
@@ -30,7 +35,7 @@
       opacity: 1;
     }
     100% {
-      transform: translateY(-50px);
+      transform: translateY(-20px);
       opacity: 0;
     }
   }
@@ -46,21 +51,21 @@
   #bubble3 {
     animation: bubble-rise 1.8s infinite ease-in-out;
   }
-  
+
   </style>
 
   <defs>
     <!-- Shrine Color -->
     <radialGradient id="shrine-color" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="var(--shrine-red-primary)" /> 
-      <stop offset="100%" stop-color="var(--shrine-red-secondary)" /> 
+      <stop offset="0%" stop-color="var(--shrine-green-primary)" /> 
+      <stop offset="100%" stop-color="var(--shrine-green-secondary)" /> 
     </radialGradient>
     
     <!-- Stone Base -->
     <linearGradient id="stone-texture" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:var(--stone-light); stop-opacity:1" />
-      <stop offset="50%" style="stop-color:var(--stone-mid); stop-opacity:1" />
-      <stop offset="100%" style="stop-color:var(--stone-dark); stop-opacity:1" />
+      <stop offset="0%" style="stop-color:var(--stone-light-gold); stop-opacity:1" />
+      <stop offset="50%" style="stop-color:var(--stone-mid-gold); stop-opacity:1" />
+      <stop offset="100%" style="stop-color:var(--stone-dark-gold); stop-opacity:1" />
     </linearGradient>
 
     <!-- Glow Effect -->
