@@ -11,6 +11,36 @@ body {
   height: 100%;
 }
 
+/* Crawlable page context, kept compact so it does not cover the map. */
+.site-intro {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  max-width: min(420px, calc(100% - 240px));
+  padding: 10px 14px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.72);
+  border-radius: 8px;
+  font-family: sans-serif;
+  pointer-events: none;
+}
+
+.site-intro h1,
+.site-intro p {
+  margin: 0;
+}
+
+.site-intro h1 {
+  font-size: 1.15rem;
+}
+
+.site-intro p {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
 /* Styling for the map controls panel */
 .map-controls {
   position: absolute;
@@ -104,4 +134,16 @@ body {
   z-index: 1001;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.map-error {
+  position: fixed;
+  inset: 1rem auto auto 1rem;
+  z-index: 2000;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  background: #991b1b;
+  border-radius: 6px;
+  font: 14px sans-serif;
 }

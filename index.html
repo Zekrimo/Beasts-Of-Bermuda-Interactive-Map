@@ -3,7 +3,29 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Beasts of Bermuda Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the Beasts of Bermuda interactive map with shrine locations, portals, tunnels, underwater areas, regions, and event zones.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zekrimo.github.io/Beasts-Of-Bermuda-Interactive-Map/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Beasts of Bermuda Interactive Map">
+  <meta property="og:description" content="Find shrines, portals, tunnels, underwater areas, regions, and event zones in Beasts of Bermuda.">
+  <meta property="og:url" content="https://zekrimo.github.io/Beasts-Of-Bermuda-Interactive-Map/">
+  <meta property="og:site_name" content="Beasts of Bermuda Interactive Map">
+  <meta name="twitter:card" content="summary">
+  <title>Beasts of Bermuda Map | Interactive Shrine & Portal Map</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Beasts of Bermuda Interactive Map",
+    "url": "https://zekrimo.github.io/Beasts-Of-Bermuda-Interactive-Map/",
+    "description": "An interactive map for the multiplayer dinosaur survival game Beasts of Bermuda, showing shrines, portals, tunnels, underwater areas, regions, and event zones.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Web browser",
+    "isAccessibleForFree": true
+  }
+  </script>
   <!-- Leaflet CSS for interactive maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <!-- Custom styles for the map and controls -->
@@ -13,14 +35,19 @@
 </head>
 
 <body>
+  <header class="site-intro">
+    <h1>Beasts of Bermuda Interactive Map</h1>
+    <p>Find land shrines, water shrines, portals, tunnels, underwater areas, regions, and event zones across the Beasts of Bermuda map.</p>
+  </header>
+
   <!-- Map controls: buttons to switch map overlays and checkboxes to toggle marker groups/categories -->
   <div class="map-controls">
     <!-- Overlay switching buttons -->
-    <button onclick="setMap('default')">Default Map</button>
-    <button onclick="setMap('tunnels')">Tunnel View (TODO)</button>
-    <button onclick="setMap('underwater')">Underwater View (TODO)</button>
-    <button onclick="setMap('regions')">Region View</button>
-    <button onclick="setMap('zone')">Event Zone View</button>
+    <button type="button" data-map-view="default">Default Map</button>
+    <button type="button" data-map-view="tunnels">Tunnel View</button>
+    <button type="button" data-map-view="underwater">Underwater View</button>
+    <button type="button" data-map-view="regions">Region View</button>
+    <button type="button" data-map-view="zone">Event Zone View</button>
 
     <!-- Marker legend and toggles -->
     <div class="legend">
@@ -28,50 +55,50 @@
 
       <!-- Landshrines group toggle and subcategory toggles -->
       <label>
-        <input type="checkbox" id="landshrines" checked onchange="toggleGroup('landshrines')"> Landshrines
+        <input type="checkbox" id="landshrines" data-group="landshrines" checked> Landshrines
       </label>
       <div style="margin-left: 20px;">
-        <label><input type="checkbox" class="landshrines" checked onchange="toggleCategory('landshrines_redShrines')">
-          <img src="svg/shrine-red.svg" alt="Red Shrine" style="width: 16px; height: 16px;"> Red Shrines</label><br>
-        <label><input type="checkbox" class="landshrines" checked onchange="toggleCategory('landshrines_blueShrines')">
-          <img src="svg/shrine-blue.svg" alt="Blue Shrine" style="width: 16px; height: 16px;"> Blue Shrines</label><br>
-        <label><input type="checkbox" class="landshrines" checked onchange="toggleCategory('landshrines_greenShrines')">
-          <img src="svg/shrine-green.svg" alt="Green Shrine" style="width: 16px; height: 16px;"> Green Shrines</label><br>
+        <label data-category="landshrines_redShrines" data-group="landshrines"><input type="checkbox" checked>
+          <img src="assets/icons/shrine-red.svg" alt="Red Shrine" style="width: 16px; height: 16px;"> Red Shrines</label><br>
+        <label data-category="landshrines_blueShrines" data-group="landshrines"><input type="checkbox" checked>
+          <img src="assets/icons/shrine-blue.svg" alt="Blue Shrine" style="width: 16px; height: 16px;"> Blue Shrines</label><br>
+        <label data-category="landshrines_greenShrines" data-group="landshrines"><input type="checkbox" checked>
+          <img src="assets/icons/shrine-green.svg" alt="Green Shrine" style="width: 16px; height: 16px;"> Green Shrines</label><br>
       </div>
 
       <!-- Watershrines group toggle and subcategory toggles -->
       <label>
-        <input type="checkbox" id="watershrines" checked onchange="toggleGroup('watershrines')"> Watershrines
+        <input type="checkbox" id="watershrines" data-group="watershrines" checked> Watershrines
       </label>
       <div style="margin-left: 20px;">
-        <label><input type="checkbox" class="watershrines" checked onchange="toggleCategory('watershrines_redShrines')">
-          <img src="svg/water-shrine-red.svg" alt="Red Water Shrine" style="width: 16px; height: 16px;"> Red Shrines</label><br>
-        <label><input type="checkbox" class="watershrines" checked onchange="toggleCategory('watershrines_blueShrines')">
-          <img src="svg/water-shrine-blue.svg" alt="Blue Water Shrine" style="width: 16px; height: 16px;"> Blue Shrines</label><br>
-        <label><input type="checkbox" class="watershrines" checked onchange="toggleCategory('watershrines_greenShrines')">
-          <img src="svg/water-shrine-green.svg" alt="Green Water Shrine" style="width: 16px; height: 16px;"> Green Shrines</label><br>
+        <label data-category="watershrines_redShrines" data-group="watershrines"><input type="checkbox" checked>
+          <img src="assets/icons/water-shrine-red.svg" alt="Red Water Shrine" style="width: 16px; height: 16px;"> Red Shrines</label><br>
+        <label data-category="watershrines_blueShrines" data-group="watershrines"><input type="checkbox" checked>
+          <img src="assets/icons/water-shrine-blue.svg" alt="Blue Water Shrine" style="width: 16px; height: 16px;"> Blue Shrines</label><br>
+        <label data-category="watershrines_greenShrines" data-group="watershrines"><input type="checkbox" checked>
+          <img src="assets/icons/water-shrine-green.svg" alt="Green Water Shrine" style="width: 16px; height: 16px;"> Green Shrines</label><br>
       </div>
 
       <!-- Portals group toggle and subcategory toggles -->
       <label>
-        <input type="checkbox" id="portals" checked onchange="toggleGroup('portals')"> Portals
+        <input type="checkbox" id="portals" data-group="portals" checked> Portals
       </label>
       <div style="margin-left: 20px;">
-        <label><input type="checkbox" class="portals" checked onchange="toggleCategory('portal_1')">
-          <img src="svg/portal-purple.svg" alt="Portal" style="width: 16px; height: 16px;"> Portal to the Underworld</label><br>
-        <label><input type="checkbox" class="portals" checked onchange="toggleCategory('portal_2')">
-          <img src="svg/portal-yellow.svg" alt="Portal" style="width: 16px; height: 16px;"> Velo Pond / Spiral Island</label><br>
-        <label><input type="checkbox" class="portals" checked onchange="toggleCategory('portal_3')">
-          <img src="svg/portal-orange.svg" alt="Portal" style="width: 16px; height: 16px;"> Palm Pond / Big survival water shrine</label><br>
-        <label><input type="checkbox" class="portals" checked onchange="toggleCategory('portal_4')">
-          <img src="svg/portal-brown.svg" alt="Portal" style="width: 16px; height: 16px;"> Tranquil Landbridge / Cypresss Portal</label><br>
+        <label data-category="portal_1" data-group="portals"><input type="checkbox" checked>
+          <img src="assets/icons/portal-purple.svg" alt="Portal" style="width: 16px; height: 16px;"> Portal to the Underworld</label><br>
+        <label data-category="portal_2" data-group="portals"><input type="checkbox" checked>
+          <img src="assets/icons/portal-yellow.svg" alt="Portal" style="width: 16px; height: 16px;"> Velo Pond / Spiral Island</label><br>
+        <label data-category="portal_3" data-group="portals"><input type="checkbox" checked>
+          <img src="assets/icons/portal-orange.svg" alt="Portal" style="width: 16px; height: 16px;"> Palm Pond / Big survival water shrine</label><br>
+        <label data-category="portal_4" data-group="portals"><input type="checkbox" checked>
+          <img src="assets/icons/portal-brown.svg" alt="Portal" style="width: 16px; height: 16px;"> Tranquil Landbridge / Cypress Portal</label><br>
       </div>
     </div>
   </div>
 
   <!-- Main map container -->
   <div id="map"></div>
-  <script src="script.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 
 </html>
