@@ -11,6 +11,25 @@ body {
   height: 100%;
 }
 
+/* Keep page context available to search engines and screen readers without covering the map. */
+.site-intro {
+  display: none !important;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.site-intro h1,
+.site-intro p {
+  margin: 0;
+}
+
 /* Styling for the map controls panel */
 .map-controls {
   position: absolute;
@@ -38,6 +57,43 @@ body {
 
 .map-controls button:hover {
   background: #bbb;
+}
+
+/* Expandable page context for visitors and search crawlers. */
+.map-info {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 1000;
+  max-width: min(440px, calc(100% - 20px));
+  color: #fff;
+  background: rgba(0, 0, 0, 0.78);
+  border-radius: 8px;
+  font: 14px sans-serif;
+}
+
+.map-info summary {
+  padding: 9px 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.map-info-content {
+  padding: 0 12px 10px;
+  line-height: 1.4;
+}
+
+.map-info-content h2,
+.map-info-content p {
+  margin: 0 0 8px;
+}
+
+.map-info-content h2 {
+  font-size: 1rem;
+}
+
+.map-info-content p:last-child {
+  margin-bottom: 0;
 }
 
 /* Legend styling */
@@ -104,4 +160,16 @@ body {
   z-index: 1001;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.map-error {
+  position: fixed;
+  inset: 1rem auto auto 1rem;
+  z-index: 2000;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  background: #991b1b;
+  border-radius: 6px;
+  font: 14px sans-serif;
 }

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zekrimo.github.io/Beasts-Of-Bermuda-Interactive-Map/sitemap.xml
