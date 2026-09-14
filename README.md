@@ -5,7 +5,7 @@ All rights reserved.
 This project, including all source code, assets, art and design, is provided for viewing and usage via the deployed GitHub Pages website only.
 
 You are NOT permitted to copy, modify, redistribute, or use the source code or assets in any form, including for commercial use, without explicit written permission from the author.
-Contribution can be made to this repository so all BoB community memebers can benefit from, and enjoy this map.
+Contribution can be made to this repository so all BoB community members can benefit from, and enjoy this map.
 
 For inquiries or licensing, contact: sonnyselten@gmail.com
 For Feedback or contribution, contact: sonnyselten@gmail.com
