@@ -9,9 +9,25 @@
  * @returns {void}
  */
 export function setupControls(map, layers, categories, setMap) {
+  renderCategoryLabels(categories);
   document.querySelectorAll('[data-map-view]').forEach(button => button.addEventListener('click', () => setMap(button.dataset.mapView)));
   document.querySelectorAll('input[data-group]').forEach(input => input.addEventListener('change', () => toggleGroup(map, layers, categories, input.dataset.group, input.checked)));
   document.querySelectorAll('[data-category] input').forEach(input => input.addEventListener('change', () => toggleCategory(map, layers, categories, input.closest('[data-category]').dataset.category, input.checked)));
+}
+
+/**
+ * Renders category descriptions from waypoint data into the legend.
+ *
+ * @function renderCategoryLabels
+ * @param {Object.<string, Object>} categories - Waypoint category definitions.
+ * @returns {void}
+ */
+function renderCategoryLabels(categories) {
+  document.querySelectorAll('[data-category]').forEach(label => {
+    const category = categories[label.dataset.category];
+    const description = label.querySelector('[data-category-label]');
+    if (category && description) description.textContent = category.label || category.type;
+  });
 }
 
 /**

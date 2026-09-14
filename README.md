@@ -38,7 +38,7 @@ When reporting a waypoint issue, include the category, waypoint name, correct co
 - `js/map.js` owns Leaflet setup and map overlay switching.
 - `js/markers.js` creates markers and handles tooltips and portal connections.
 - `js/controls.js` handles marker visibility controls.
-- `data/waypoints.json` contains all waypoint names, coordinates, icons, and categories.
+- `data/waypoints.json` contains all waypoint names, descriptions, coordinates, icons, and categories.
 - `assets/maps/` contains the map layers and water background.
 - `assets/maps/reference/` contains preserved images that are not currently used by the app.
 - `assets/icons/` contains shrine and portal SVG icons.
