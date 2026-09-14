@@ -59,6 +59,20 @@ body {
   background: #bbb;
 }
 
+.marker-subcategories {
+  margin: 0 0 8px 20px;
+}
+
+.marker-subcategories label {
+  display: block;
+  margin-top: 4px;
+}
+
+.marker-subcategories img {
+  margin: 0 4px;
+  vertical-align: middle;
+}
+
 /* Expandable page context for visitors and search crawlers. */
 .map-info {
   position: absolute;

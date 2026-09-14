@@ -46,57 +46,13 @@
 
   <!-- Map controls: buttons to switch map overlays and checkboxes to toggle marker groups/categories -->
   <div class="map-controls">
-    <!-- Overlay switching buttons -->
-    <button type="button" data-map-view="default">Default Map</button>
-    <button type="button" data-map-view="tunnels">Tunnel View</button>
-    <button type="button" data-map-view="underwater">Underwater View</button>
-    <button type="button" data-map-view="regions">Region View</button>
-    <button type="button" data-map-view="zone">Event Zone View</button>
+    <!-- Overlay switching buttons are generated from data/waypoints.json. -->
+    <div data-map-views aria-label="Map views"></div>
 
     <!-- Marker legend and toggles -->
     <div class="legend">
       <strong>Toggle Markers:</strong><br>
-
-      <!-- Landshrines group toggle and subcategory toggles -->
-      <label>
-        <input type="checkbox" id="landshrines" data-group="landshrines" checked> Landshrines
-      </label>
-      <div style="margin-left: 20px;">
-        <label data-category="landshrines_redShrines" data-group="landshrines"><input type="checkbox" checked>
-          <img src="assets/icons/shrine-red.svg" alt="Red Shrine" style="width: 16px; height: 16px;"> <span data-category-label></span></label><br>
-        <label data-category="landshrines_blueShrines" data-group="landshrines"><input type="checkbox" checked>
-          <img src="assets/icons/shrine-blue.svg" alt="Blue Shrine" style="width: 16px; height: 16px;"> <span data-category-label></span></label><br>
-        <label data-category="landshrines_greenShrines" data-group="landshrines"><input type="checkbox" checked>
-          <img src="assets/icons/shrine-green.svg" alt="Green Shrine" style="width: 16px; height: 16px;"> <span data-category-label></span></label><br>
-      </div>
-
-      <!-- Watershrines group toggle and subcategory toggles -->
-      <label>
-        <input type="checkbox" id="watershrines" data-group="watershrines" checked> Watershrines
-      </label>
-      <div style="margin-left: 20px;">
-        <label data-category="watershrines_redShrines" data-group="watershrines"><input type="checkbox" checked>
-          <img src="assets/icons/water-shrine-red.svg" alt="Red Water Shrine" style="width: 16px; height: 16px;"> <span data-category-label></span></label><br>
-        <label data-category="watershrines_blueShrines" data-group="watershrines"><input type="checkbox" checked>
-          <img src="assets/icons/water-shrine-blue.svg" alt="Blue Water Shrine" style="width: 16px; height: 16px;"> <span data-category-label></span></label><br>
-        <label data-category="watershrines_greenShrines" data-group="watershrines"><input type="checkbox" checked>
-          <img src="assets/icons/water-shrine-green.svg" alt="Green Water Shrine" style="width: 16px; height: 16px;"> <span data-category-label></span></label><br>
-      </div>
-
-      <!-- Portals group toggle and subcategory toggles -->
-      <label>
-        <input type="checkbox" id="portals" data-group="portals" checked> Portals
-      </label>
-      <div style="margin-left: 20px;">
-        <label data-category="portal_1" data-group="portals"><input type="checkbox" checked>
-          <img src="assets/icons/portal-purple.svg" alt="Portal" style="width: 16px; height: 16px;"> <span data-category-label></span></label><br>
-        <label data-category="portal_2" data-group="portals"><input type="checkbox" checked>
-          <img src="assets/icons/portal-yellow.svg" alt="Portal" style="width: 16px; height: 16px;"> <span data-category-label></span></label><br>
-        <label data-category="portal_3" data-group="portals"><input type="checkbox" checked>
-          <img src="assets/icons/portal-orange.svg" alt="Portal" style="width: 16px; height: 16px;"> <span data-category-label></span></label><br>
-        <label data-category="portal_4" data-group="portals"><input type="checkbox" checked>
-          <img src="assets/icons/portal-brown.svg" alt="Portal" style="width: 16px; height: 16px;"> <span data-category-label></span></label><br>
-      </div>
+      <div data-marker-groups></div>
     </div>
   </div>
 

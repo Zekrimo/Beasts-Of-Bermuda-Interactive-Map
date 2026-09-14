@@ -15,7 +15,9 @@ export function createMarkerLayers(map, categories) {
     layers[category] = L.layerGroup().addTo(map);
     definition.points.forEach(point => {
       const icon = L.icon({ iconUrl: point.big ? definition.bigIcon : definition.icon, iconSize: point.big ? [50, 50] : [35, 35], iconAnchor: point.big ? [25, 25] : [17.5, 17.5], popupAnchor: point.big ? [0, -25] : [0, -17.5] });
-      const marker = L.marker(point.coords, { icon }).bindPopup(`<b>${point.name}</b>`);
+      const description = point.description || definition.description;
+      const popup = `<b>${point.name}</b>${description ? `<br><span>${description}</span>` : ''}`;
+      const marker = L.marker(point.coords, { icon }).bindPopup(popup);
       marker.on('mouseover', event => { if (!marker.getPopup()?.isOpen()) showTooltip(event.originalEvent, point.name, definition); });
       marker.on('mouseout', hideTooltip);
       marker.on('mousemove', event => updateTooltip(event.originalEvent));
